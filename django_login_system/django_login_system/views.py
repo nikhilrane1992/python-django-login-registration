@@ -21,14 +21,14 @@ def register_user(request):
             form = AdminRegistrationForm(request.POST)
             if form.is_valid():
                 form.save()
-                register_success = [{"registration" : "Register Sucessfully" }]
+                register_success = [{"validation" : "Registered Sucessfully", "status": True}]
                 return HttpResponse(json.dumps(register_success), content_type = "application/json")
 
         args = {}
         args['form'] = AdminRegistrationForm()
         return render_to_response('register.html',args)
     else:
-        models_data = [{"status" : "authentication failure"}]
+        models_data = [{"validation" : "authentication failure", "status": False}]
         return HttpResponse(json.dumps(models_data), content_type = "application/json")
 
 
@@ -48,11 +48,11 @@ def auth_view(request):
 
 	    if user is not None:
 			auth.login(request, user)
-			Status = [{"status": "Login Successfully"}]
+			Status = [{"validation": "Login Successful", "status": True}]
 			return HttpResponse(json.dumps(Status), content_type="application/json")
 
 	    else:
-	        Status = [{"status": "Authentication failure"}]
+	        Status = [{"validation": "Authentication failure", "status": False}]
 	        return HttpResponse(json.dumps(Status), content_type="application/json")
 	else:
 		return HttpResponse(json.dumps([{"validation": "I am watching you (0_0)", "status": False}]), content_type="application/json")
@@ -66,16 +66,12 @@ def registerUser(request):
     if request.POST:
         dataDictionary = json.loads(request.body)
         username = request.POST['username']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
         email = request.POST['email']
         password = request.POST['password']
         password1 = request.POST['password1']
 
         user=User()
         user.username = username
-        user.first_name = first_name
-        user.last_name = last_name
         user.email = email
         if password == password1:
             user.set_password(password)
@@ -83,7 +79,7 @@ def registerUser(request):
             return HttpResponse(json.dumps([{"validation": "Password does not match", "status": False}]), content_type="application/json")
         # user.is_staff = True
         user.save()
-        register_success = [{"validation" : "Register Successfully", "status": True}]
+        register_success = [{"validation" : "Registration Successful", "status": True}]
         return HttpResponse(json.dumps(register_success), content_type="application/json")
     else:
         return HttpResponse(json.dumps([{"validation": "I am watching you (0_0)", "status": False}]), content_type="application/json")
