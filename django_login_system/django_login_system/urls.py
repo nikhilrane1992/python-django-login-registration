@@ -10,17 +10,17 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^auth/$', 'django_login_system.views.auth_view'),
-    url(r'^login/$', 'django_login_system.views.login'),
+    url(r'^user/login/$', 'django_login_system.views.login'),
 
 #------------------------------------------------------------------------------------------------------------------------
 #                             Register New user using django Form
 #------------------------------------------------------------------------------------------------------------------------
-    url(r'^register_user/$', 'django_login_system.views.register_user'),
+    url(r'^user/register/django/$', 'django_login_system.views.register_user'),
 
 #------------------------------------------------------------------------------------------------------------------------
 #                             Register new user using post request
 #------------------------------------------------------------------------------------------------------------------------
-    url(r'^registerUser/$', 'django_login_system.views.registerUser'),
+    url(r'^user/register/$', 'django_login_system.views.registerUser'),
 
 
 )+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
