@@ -1,0 +1,45 @@
+{% extends 'adminPanelMaster.html' %}
+{% block pageContainer %}
+<div class = "container">
+<div class = "row">
+<div class = "col-xs-6">
+<h2> Register Admin user </h2>
+<form action ="/register_user/"  method="POST" enctype="multipart/form-data">
+	<div class="form-group">
+		<label  class="control-label" for="Username">Username</label>
+		<input class = "form-control" id="id_username" maxlength="30" name="username" type="text" />
+	</div>
+
+	<div class="form-group">
+		<label  class="control-label" for="Password">Password</label>
+		<input class = "form-control" id="id_password1" name="password1" type="password" />
+	</div>
+
+	<div class="form-group">
+		<label  class="control-label" for="Password confirmation">Password confirmation</label>
+		<input class = "form-control" id="id_password2" name="password2" type="password" />
+	</div>
+
+	<div class="form-group">
+		<label  class="control-label" for="Email address">Email address</label>
+		<input class = "form-control" id="id_email" maxlength="75" name="email" type="email" />
+	</div>
+
+	<div class="form-group">
+		<label  class="control-label" for="First name">First name</label>
+		<input class = "form-control" id="id_first_name" maxlength="30" name="first_name" type="text" />
+	</div>
+
+	<div class="form-group">
+		<label  class="control-label" for="Last name">Last name</label>
+		<input class = "form-control" id="id_last_name" maxlength="30" name="last_name" type="text" />
+	</div>
+
+<!-- <p class="help-block">Example block-level help text here.</p> -->
+
+<input type="submit" class="btn btn-default" value="Register">
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

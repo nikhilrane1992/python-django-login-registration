@@ -1,13 +1,42 @@
 from django.shortcuts import HttpResponse
 from django.shortcuts import render_to_response, HttpResponseRedirect
 from django.contrib import auth
+import json
+from forms import AdminRegistrationForm
+
+
+#------------------------------------------------------------------------------------------------------------------------
+#                             Login System
+#------------------------------------------------------------------------------------------------------------------------
+def login(request):
+    return render_to_response('login.html')
+
+
+#------------------------------------------------------------------------------------------------------------------------
+#                             Register New user using django Form
+#------------------------------------------------------------------------------------------------------------------------
+def register_user(request):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            form = AdminRegistrationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                register_success = [{"registration" : "Register Sucessfully" }]
+                return HttpResponse(json.dumps(register_success), content_type = "application/json")
+
+        args = {}
+        args['form'] = AdminRegistrationForm()
+        return render_to_response('register.html',args)
+    else:
+        models_data = [{"status" : "authentication failure"}]
+        return HttpResponse(json.dumps(models_data), content_type = "application/json")
 
 
 #------------------------------------------------------------------------------------------------------------------------
 #                             Login Auth for every user
 #------------------------------------------------------------------------------------------------------------------------
 def auth_view(request):
-	if request.POST
+	if request.POST:
 	    username = request.POST['username']
 	    password = request.POST['password']
 
@@ -18,7 +47,7 @@ def auth_view(request):
 	    user = auth.authenticate(username=username, password=password)
 
 	    if user is not None:
-	        auth.login(request, user)
+			auth.login(request, user)
 			Status = [{"status": "Login Successfully"}]
 			return HttpResponse(json.dumps(Status), content_type="application/json")
 
@@ -26,12 +55,12 @@ def auth_view(request):
 	        Status = [{"status": "Authentication failure"}]
 	        return HttpResponse(json.dumps(Status), content_type="application/json")
 	else:
-        return HttpResponse(json.dumps([{"validation": "I am watching you (0_0)", "status": False}]), content_type="application/json")
+		return HttpResponse(json.dumps([{"validation": "I am watching you (0_0)", "status": False}]), content_type="application/json")
 
 
 
 #------------------------------------------------------------------------------------------------------------------------
-#                             Register New User Using Json
+#                             Register new user using post request
 #------------------------------------------------------------------------------------------------------------------------
 def registerUser(request):
     if request.POST:
@@ -54,7 +83,7 @@ def registerUser(request):
             return HttpResponse(json.dumps([{"validation": "Password does not match", "status": False}]), content_type="application/json")
         # user.is_staff = True
         user.save()
-        register_success = [{"registration" : "Register Successfully", "status": True}]
+        register_success = [{"validation" : "Register Successfully", "status": True}]
         return HttpResponse(json.dumps(register_success), content_type="application/json")
     else:
         return HttpResponse(json.dumps([{"validation": "I am watching you (0_0)", "status": False}]), content_type="application/json")

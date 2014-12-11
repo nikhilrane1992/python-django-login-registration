@@ -1,0 +1,29 @@
+{% extends 'adminPanelMaster.html' %}
+{% block pageContainer %}
+
+<div class = "container">
+<div class = "row">
+<div class = "col-xs-6">
+{% if form.errors %}
+	<p class = "error"> Sorry It's not a valid username and password </p>
+{% endif %}
+<form action = "/auth/" method = "post"> 
+	<div class="form-group">
+		<label  class="control-label" for="Username">Username</label>
+		<input class = "form-control" type="text" placeholder="Username" id = "username" name = "username" />
+	</div>
+	
+	<div class="form-group">
+		<label  class="control-label" for="Password">Password</label>
+		<input class = "form-control" input type="password" placeholder="Password" id = "password" name = "password"/>
+	</div>
+
+	<input TYPE="submit" Value="Login" class="btn btn-default">
+	<input TYPE="reset" Value="Reset" class="btn btn-default">
+	</fieldset>
+</form>
+
+</div>
+</div>
+</div>
+{% endblock %}
