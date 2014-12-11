@@ -1,0 +1,13 @@
+*~
+*.pyc
+*.html~
+.idea
+*REMOTE*
+*LOCAL*
+*BASE*
+*BACKUP*
+*.orig
+migrations/
+Project_Database/
+path.txt
+prepros.cfg
