@@ -1,5 +1,5 @@
-Django Registration and Login System
-==================================
+Python Django Registration and Login System
+============================================
 
 In this tutorial we will focus in the Registration and Login features using django web framework. 
 It is a full working solution for login and register user in django web framework.
